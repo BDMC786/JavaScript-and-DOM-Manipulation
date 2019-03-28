@@ -1,22 +1,22 @@
-var sightings = data;
+var tableData = data;
 
 // YOUR CODE HERE!
 var input = d3.select("#filter-btn");
 
 input.on("click", function() {
   d3.event.preventDefault();
-  var inputDict = {}
+  var input_dict = {}
   if(d3.select("#datetime").property("value")) {
-    inputDict['datetime'] = [d3.select("#datetime").property("value")];}
+    input_dict['datetime'] = [d3.select("#datetime").property("value")];}
   if(d3.select("#city").property("value")) {
-    inputDict['city'] = [d3.select("#city").property("value")];}
+    input_dict['city'] = [d3.select("#city").property("value")];}
   if(d3.select("#state").property("value")) {
-    inputDict['state'] = [d3.select("#state").property("value")];}
+    input_dict['state'] = [d3.select("#state").property("value")];}
   if(d3.select("#country").property("value")) {
-    inputDict['country'] = [d3.select("#country").property("value")];}
+    input_dict['country'] = [d3.select("#country").property("value")];}
   if(d3.select("#shape").property("value")) {
-    inputDict['shape'] = [d3.select("#shape").property("value")];}
-  //console.log(inputDict)
+    input_dict['shape'] = [d3.select("#shape").property("value")];}
+  //console.log(input_dict)
   
     d3.select("#datetime").node().value = "";
     d3.select("#city").node().value = "";
@@ -24,16 +24,16 @@ input.on("click", function() {
     d3.select("#country").node().value = "";
     d3.select("#shape").node().value = "";
 
-    function filterData(dataArray, filters) {
-      const filterKeys = Object.keys(filters);
-      return dataArray.filter((sighting) => {
-        return filterKeys.every(key => {
+    function filterData(data_table, filters) {
+      const filter_keys = Object.keys(filters);
+      return data_table.filter((sighting) => {
+        return filter_keys.every(key => {
           return filters[key].includes(sighting[key]);
         })
       })
     }
 
-    outputData = filterData(sightings, inputDict);
+    outputData = filterData(data, input_dict);
 
     d3.select("#dataTable").remove();
     d3.select("#ufo-table").append("tbody").attr("id","dataTable");
@@ -50,27 +50,5 @@ input.on("click", function() {
       row.append("td").text(sighting.durationMinutes);
       row.append("td").text(sighting.comments);
     }) 
-    // d3.select("#dataTable").remove();
-    // d3.select("#ufo-table").append("tbody").attr("id","dataTable");
-
-    // // Build table based on filteredData
-    // var tbody = d3.select("tbody");
-
-    // // Loop through filtered data and add a row for each entry
-    // dataTable.forEach(sighting => {
-    //     var row = tbody.append("tr");
-
-    //     // Loop through each entry and get the key and value for each item
-    //     Object.entries(sighting).forEach(([key, value]) => {
-    //     console.log(key, value);
-
-    //     // Append a cell to the row for each value
-    //     var cell = tbody.append("td");
-
-    //     // Fill each cell with the corresponding value
-    //     cell.text(value);
-    //     })
-    // })
-  
 
 })
